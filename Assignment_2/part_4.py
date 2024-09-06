@@ -6,8 +6,9 @@ def power_function(n):
 
 power_2 = power_function(2)
 
-print(power_2(2)) # 4
-print(power_2(3)) # 9
+assert power_2(2) == 4
+assert power_2(3) == 9
+
 
 # 4.2
 def power_up_to(n):
@@ -15,7 +16,9 @@ def power_up_to(n):
 
 power_up_to_3 = power_up_to(3) # [power_function(1), power_function(2), power_function(3)]
 
-print(power_up_to_3[0](2)) # 2^1 = 2
+assert len(power_up_to_3) == 3
+assert power_up_to_3[0](2) == 2
+assert power_up_to_3[1](2) == 4
 
 # 4.3
 # tailor series for e^x
@@ -25,3 +28,6 @@ def factorial(n):
 
 def e_power_x(x, n):
     return sum([power_function(i)(x) / factorial(i) for i in range(n)])
+
+assert e_power_x(1, 10) == 2.7182818011463845
+assert e_power_x(2, 10) == 7.389056098930649
