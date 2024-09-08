@@ -73,6 +73,17 @@ assert next(prime_1) == 2
 assert next(prime_1) == 3
 assert next(prime_1) == 5
 
+# generator from the sieve of Eratosthenes algorithm
+def sieve_of_eratosthenes():
+    i = 2
+    prime_numbers = []
+    while True:
+        if all(i % j != 0 for j in prime_numbers):
+            prime_numbers.append(i)
+            yield i
+        i += 1
+
+
 # 3.
 # Write a generator function that generates the power of x for each number from 0 to n.
 
@@ -82,9 +93,11 @@ assert next(prime_1) == 5
 # using cache to store the power of x for each number
 from functools import lru_cache
 
-@lru_cache
-def factorial(n):
-    return 1 if n == 0 else n * factorial(n - 1)
+# @lru_cache
+# def factorial(n):
+#     return 1 if n == 0 else n * factorial(n - 1)
+
+from math import factorial
 
 def power_function(n):
     return lambda x: x ** n
@@ -95,28 +108,16 @@ def e_power_x(x):
         yield power_function(i)(x) / factorial(i)
         i += 1
 
-powers = [e_power_x(2)(i) for i in range(8)]
+# e_power_x is a generator object
+e_power_2 = e_power_x(2)
 
-print(powers)
+
+#  the powers variable need to be a sum such that a_1 is equal to sum(powers[:1]), a_2 is equal to sum(powers[:2]), and so on.
+
+powers = [next(e_power_2) for _ in range(8)]
+powers = [sum(powers[:i]) for i in range(1, len(powers) + 1)]
 
 assert powers == [
-    1.0,
-    3.0,
-    5.0,
-    6.333333333333333,
-    7.0,
-    7.266666666666667,
-    7.355555555555555,
-    7.3809523809523805,
-]
-
-
-# without lazy evaluation
-def e_power_x_without(x):
-    return [power_function(i)(x) / factorial(i) for i in range(8)]
-
-
-assert e_power_x_without(2) == [
     1.0,
     3.0,
     5.0,
