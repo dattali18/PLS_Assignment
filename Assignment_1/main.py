@@ -1,8 +1,8 @@
-def getPentaNum(n):
+def getPentaNum(n: int) -> int:
     return n * (3 * n - 1) // 2
 
 
-def pentaNumRange(n1, n2):
+def pentaNumRange(n1: int, n2: int) -> list[int]:
     return [getPentaNum(i) for i in range(n1, n2)]
 
 
@@ -15,7 +15,7 @@ def sumDigit(n: int) -> int:
     return sum([int(i) for i in str(n)])
 
 
-def get_gematria(word):
+def get_gematria(word: str) -> int:
     gematria = {
         "א": 1,
         "ב": 2,
@@ -67,7 +67,7 @@ def get_gematria(word):
     return sum([gematria[letter] for letter in word])
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     if n < 2:
         return False
     # looping from 2 to the  √n (sqrt(n))
@@ -77,7 +77,7 @@ def is_prime(n):
     return True
 
 
-def has_twin_prime(n):
+def has_twin_prime(n: int) -> bool:
     is_prime_n = is_prime(n)
     if not is_prime_n:
         return False
@@ -86,7 +86,7 @@ def has_twin_prime(n):
     return False
 
 
-def get_twin_prime_up_to_n(n):
+def get_twin_prime_up_to_n(n: int) -> list[int]:
     twin_primes = {}
     for i in range(2, n):
         if has_twin_prime(i):
@@ -95,11 +95,6 @@ def get_twin_prime_up_to_n(n):
 
 
 def add3dicts(d1: dict, d2: dict, d3: dict) -> dict:
-    """
-    Write a function (add3dicts) d1,d2,d3 that receives three dictionaries and returns a new dictionary constructed as follows:
-    For each key in the original dictionaries, a key will appear in the new dictionary, and the value associated with that key will be
-    record)No duplicates! (associated with the same key, in three) containing all the values (tuple input dictionaries.
-    """
     new_dict = {}
     for key in d1.keys():
         new_dict[key] = (d1[key],)
@@ -116,26 +111,26 @@ def add3dicts(d1: dict, d2: dict, d3: dict) -> dict:
     return new_dict
 
 
-def apply_functions_on_numbers(numbers, functions):
+def apply_functions_on_numbers(numbers: list[int], functions: list[callable]) -> dict:
     functions_dict = {}
     for func in functions:
         functions_dict[func.__name__] = [func(number) for number in numbers]
     return functions_dict
 
 
-def apply_functions_on_numbers_2(numbers, functions):
+def apply_functions_on_numbers_2(numbers: list[int], functions: list[callable]) -> dict:
     return {func.__name__: [func(n) for n in numbers] for func in functions}
 
 
-def multiply_by_2(x):
+def multiply_by_2(x: int) -> int:
     return x * 2
 
 
-def square(x):
+def square(x: int) -> int:
     return x**2
 
 
-def inverse(x):
+def inverse(x: int) -> float:
     return 1 / x
 
 
