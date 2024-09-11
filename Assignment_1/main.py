@@ -6,7 +6,7 @@ def pentaNumRange(n1, n2):
     return [getPentaNum(i) for i in range(n1, n2)]
 
 
-def sumDigit(n):
+def sumDigit(n: int) -> int:
     """
     This is not the best way to do it
     the simplest way to do it is $$sum(n) = n * (n+1) / 2$$
@@ -48,22 +48,23 @@ def get_gematria(word):
     # we will use the gematria dictionary to get the value of each letter in the word
     # and sum them all loop from right to left and check if the letter is in the gematria dictionary
 
-    sum = 0
-    reversed_word = word[::-1]
+    # sum = 0
+    # reversed_word = word[::-1]
 
-    for i in range(len(reversed_word)):
-        if reversed_word[i] in gematria:
-            # check if the letter is 15 or 16
-            if i > 0 and reversed_word[i] == "ו" and reversed_word[i - 1] == "ט":
-                sum += 6 + 9
-                continue
-            sum += gematria[reversed_word[i]]
-        else:
-            raise ValueError(
-                f"the letter {reversed_word[i]} is not in the gematria dictionary"
-            )
+    # for i in range(len(reversed_word)):
+    #     if reversed_word[i] in gematria:
+    #         # check if the letter is 15 or 16
+    #         if i > 0 and reversed_word[i] == "ו" and reversed_word[i - 1] == "ט":
+    #             sum += 6 + 9
+    #             continue
+    #         sum += gematria[reversed_word[i]]
+    #     else:
+    #         raise ValueError(
+    #             f"the letter {reversed_word[i]} is not in the gematria dictionary"
+    #         )
 
-    return sum
+    # return sum
+    return sum([gematria[letter] for letter in word])
 
 
 def is_prime(n):
@@ -93,10 +94,25 @@ def get_twin_prime_up_to_n(n):
     return twin_primes
 
 
-def add3dicts(d1, d2, d3):
+def add3dicts(d1: dict, d2: dict, d3: dict) -> dict:
+    """
+    Write a function (add3dicts) d1,d2,d3 that receives three dictionaries and returns a new dictionary constructed as follows:
+    For each key in the original dictionaries, a key will appear in the new dictionary, and the value associated with that key will be
+    record)No duplicates! (associated with the same key, in three) containing all the values (tuple input dictionaries.
+    """
     new_dict = {}
-    for key in d1:
-        new_dict[key] = (d1[key], d2[key], d3[key])
+    for key in d1.keys():
+        new_dict[key] = (d1[key],)
+    for key in d2.keys():
+        if key in new_dict:
+            new_dict[key] += (d2[key],)
+        else:
+            new_dict[key] = (d2[key],)
+    for key in d3.keys():
+        if key in new_dict:
+            new_dict[key] += (d3[key],)
+        else:
+            new_dict[key] = (d3[key],)
     return new_dict
 
 
@@ -105,6 +121,10 @@ def apply_functions_on_numbers(numbers, functions):
     for func in functions:
         functions_dict[func.__name__] = [func(number) for number in numbers]
     return functions_dict
+
+
+def apply_functions_on_numbers_2(numbers, functions):
+    return {func.__name__: [func(n) for n in numbers] for func in functions}
 
 
 def multiply_by_2(x):
@@ -117,5 +137,6 @@ def square(x):
 
 def inverse(x):
     return 1 / x
+
 
 functions = [multiply_by_2, square, inverse]
